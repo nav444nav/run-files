@@ -1,0 +1,78 @@
+{
+  "name": "windsurf-workflow-launcher",
+  "displayName": "Windsurf Workflow Launcher",
+  "description": "Automatically discovers workflows in the .windsurf directory and exposes them as one-click actions.",
+  "version": "0.0.1",
+  "publisher": "runfiles",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:windsurfWorkflowLauncherView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "windsurfWorkflowLauncher",
+          "title": "Windsurf",
+          "icon": "media/windsurf.svg"
+        }
+      ]
+    },
+    "views": {
+      "windsurfWorkflowLauncher": [
+        {
+          "id": "windsurfWorkflowLauncherView",
+          "name": "Workflows",
+          "contextualTitle": "Windsurf Workflows"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "windsurfWorkflowLauncher.refresh",
+        "title": "Refresh Windsurf Workflows"
+      },
+      {
+        "command": "windsurfWorkflowLauncher.runWorkflow",
+        "title": "Run Windsurf Workflow"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "windsurfWorkflowLauncher.runWorkflow",
+          "when": "view == windsurfWorkflowLauncherView && viewItem == workflow",
+          "group": "inline"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "windsurfWorkflowLauncher.refresh",
+          "when": "view == windsurfWorkflowLauncherView",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
